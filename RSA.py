@@ -2,6 +2,7 @@ import time
 import os
 import math
 from random import randint
+import BMP
 
 PRIME_8BIT = 100001449
 E_DEFAULT = pow(2,16)+1
@@ -18,7 +19,7 @@ def testPrime(n) :
 
     if (n % 2 == 0 or n % 3 == 0) : 
         return False
-  
+#i=k+6 optimalization
     i = 5
     while(i * i <= n) : 
         if (n % i == 0 or n % (i + 2) == 0) :
@@ -31,6 +32,7 @@ def findLowerPrime(n):
         n -= 1
         if testPrime(n):
             return n
+    return 2
 
 def findHigherPrime(n):
     while n < math.inf:
@@ -118,21 +120,21 @@ def generatePublicKey(p,q,e=E_DEFAULT):
     n = p*q
     return [n,e]
 
-p,q = randomPQ(24)
+img = BMP.cv2.imread('TestData/logo_original.bmp')
+x = img.shape[0]
+y = img.shape[1]
+RGB = img.shape[2]
+
+p,q = randomPQ(30)
 public = generatePublicKey(p,q)
 private = generatePrivateKey(p,q)
+for i in range(x):
+    for j in range(y):
+        for k in range(RGB):
+            tmpVal = int(img[i,j,k])
+            newVal = encryptM(tmpVal,public)
+            img[i,j,k] = newVal
 
-mIn = 2987987
+BMP.cv2.imwrite("TestData/logo2DES.bmp", img)
 
-start = time.clock()
-
-c = encryptM(mIn, public)
-mOut = decryptC(c, private)
-
-end = time.clock()
-time = end-start
-print("P:",p, "Q:",q,"PUB:",public,"PRIV:",private)
-print("INPUT: ", mIn)
-print("CRYPTED: ", c)
-print("OUTPUT: ", mOut, "Computed in time:",time)
 

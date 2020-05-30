@@ -163,27 +163,28 @@ def anonimize(meta):
     return meta
 
 
-file_han = open('TestData/fft.bmp', 'rb')
-meta = loadMeta(file_han)
-[obraz, paleta] = loadPixels(file_han)
-print(meta)
-meta = anonimize(meta)
-writeImagetoFile("OWN.bmp", meta, obraz, paleta)
+# file_han = open('TestData/fft.bmp', 'rb')
+# meta = loadMeta(file_han)
+# [obraz, paleta] = loadPixels(file_han)
+# print(meta)
+# meta = anonimize(meta)
+# writeImagetoFile("OWN.bmp", meta, obraz, paleta)
 
-data = makeimagefromPixels(meta,obraz)
-img = Image.fromarray(data)
-img.save('LIB.bmp')
+# data = makeimagefromPixels(meta,obraz)
+# img = Image.fromarray(data)
+# img.save('LIB.bmp')
 
-file_han.close()
+# file_han.close()
 
-plt.figure(figsize=(6.4*5, 4.8*5), constrained_layout=False)
+# plt.figure(figsize=(6.4*5, 4.8*5), constrained_layout=False)
 
-img2 = cv2.imread("TestData/fft.bmp", 0)
-original = np.fft.fft2(img2)
-fshift = np.fft.fftshift(original)
-magnitude_spectrum = 20*np.log(np.abs(fshift))
+# img2 = cv2.imread("TestData/fft.bmp", 0)
 
-plt.subplot(121), plt.imshow(magnitude_spectrum, "gray"), plt.title("Spectrum")
+# original = np.fft.fft2(img2)
+# fshift = np.fft.fftshift(original)
+# magnitude_spectrum = 20*np.log(np.abs(fshift))
 
-plt.subplot(122), plt.imshow(np.angle(original), "gray"), plt.title("Phase Angle")
-plt.show()
+# plt.subplot(121), plt.imshow(magnitude_spectrum, "gray"), plt.title("Spectrum")
+
+# plt.subplot(122), plt.imshow(np.angle(original), "gray"), plt.title("Phase Angle")
+# plt.show()
